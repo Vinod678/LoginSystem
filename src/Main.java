@@ -3,7 +3,7 @@ public class Main {
 
 
     IDandPasswords iDandPasswords = new IDandPasswords();
-    LoginPage loginPage = new LoginPage(iDandPasswords.getLoginInfo());
+    LoginPage loginPage = new LoginPage(iDandPasswords);
 
     }
 }

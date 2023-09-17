@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 public class LoginPage implements ActionListener {
+    private IDandPasswords iDandPasswords;
 
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
@@ -14,11 +15,13 @@ public class LoginPage implements ActionListener {
     JLabel userIDLable = new JLabel("userId:");
     JLabel userPasswordLable = new JLabel("password:");
     JLabel messageLable = new JLabel();
+    JButton registrationButton = new JButton("REGISTER");
 
 
     HashMap<String,String> loginInfo = new HashMap<>();
-    LoginPage(HashMap<String,String> loginInfoOriginal){
-        loginInfo = loginInfoOriginal;
+    public LoginPage(IDandPasswords iDandPasswords){
+        this.iDandPasswords = iDandPasswords;
+
 
         userIDLable.setBounds(50,100,75,25);
         userPasswordLable.setBounds(50,150,75,25);
@@ -37,6 +40,10 @@ public class LoginPage implements ActionListener {
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
+        registrationButton.setBounds(225,300,100,45);
+        registrationButton.setFocusable(false);
+        registrationButton.addActionListener(this);
+
         frame.add(userIDLable);
         frame.add(userPasswordLable);
         frame.add(messageLable);
@@ -44,6 +51,7 @@ public class LoginPage implements ActionListener {
         frame.add(userPasswordField);
         frame.add(loginButton);
         frame.add(resetButton);
+        frame.add(registrationButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
@@ -64,8 +72,8 @@ public class LoginPage implements ActionListener {
             String userID = userIDField.getText();
             String password = String.valueOf(userPasswordField.getPassword());
 
-            if(loginInfo.containsKey(userID)){
-                if(loginInfo.get(userID).equals(password)){
+            if(iDandPasswords.isUserValid(userID,password)){
+
                     messageLable.setForeground(Color.green);
                     messageLable.setText("Login Successful");
                     frame.dispose();
@@ -73,13 +81,13 @@ public class LoginPage implements ActionListener {
                 }
                 else{
                     messageLable.setForeground(Color.red);
-                    messageLable.setText("Wrong Password");
+                    messageLable.setText("Incorrect Username or Password");
                 }
             }
-            else{
-                messageLable.setForeground(Color.red);
-                messageLable.setText("userName not found");
-            }
+        if(e.getSource()==registrationButton){
+            RegistrationPage registrationPage = new RegistrationPage();
         }
+
+
     }
 }
